@@ -1,0 +1,11 @@
+# Verify versions against the model's docs before running.
+torch
+transformers
+peft
+bitsandbytes
+accelerate
+datasets
+pillow
+pyyaml
+numpy
+pytest

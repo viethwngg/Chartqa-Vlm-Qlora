@@ -1,0 +1,34 @@
+seed: 42
+
+model:
+  name: "TODO: e.g. HuggingFaceTB/SmolVLM-Instruct or Qwen/Qwen2-VL-2B-Instruct (verify exact id)"
+  load_in_4bit: true
+  max_pixels: 313600        # limit image resolution to fit VRAM
+
+data:
+  dataset: "TODO: ChartQA dataset id on Hugging Face (verify)"
+  n_train: 4000
+  n_val: 300
+  n_test: 1000
+  split_by: image            # split by image to avoid leakage
+
+lora:
+  r: 16
+  alpha: 32
+  dropout: 0.05
+  target_modules: ["q_proj", "v_proj"]   # adjust to the chosen model
+  tune_vision_encoder: false
+
+train:
+  epochs: 1
+  per_device_batch_size: 1
+  grad_accum_steps: 16
+  learning_rate: 2.0e-4
+  fp16: true                 # T4 has no bf16
+  gradient_checkpointing: true
+  output_dir: "outputs/base"
+
+eval:
+  max_new_tokens: 32
+  relaxed_tolerance: 0.05
+  bootstrap_samples: 1000
