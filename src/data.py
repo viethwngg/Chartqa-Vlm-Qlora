@@ -11,11 +11,18 @@ def split_by_image(records: List[dict], n_train: int, n_val: int, n_test: int,
                    ) -> Tuple[List[dict], List[dict], List[dict]]:
     """Group questions by image, shuffle images, then fill train/val/test.
 
-    The same image never appears in two splits. Sizes are approximate caps
-    (a split stops once adding another image would exceed its size).
+    The same supplied image ID never appears in two splits. Fill test, val,
+    then train, skipping any split that cannot fit a whole group. Sizes are
+    approximate question caps; groups that fit nowhere remain unassigned.
+    Content deduplication and preservation of official splits are caller duties.
     """
+    if any(isinstance(n, bool) or not isinstance(n, int) or n < 0
+           for n in (n_train, n_val, n_test)):
+        raise ValueError("Split caps must be nonnegative integers.")
     groups: Dict[str, List[dict]] = defaultdict(list)
     for r in records:
+        if not isinstance(r.get(image_key), str) or not r[image_key].strip():
+            raise ValueError(f"Each record needs a nonempty string {image_key}.")
         groups[r[image_key]].append(r)
     keys = sorted(groups)
     random.Random(seed).shuffle(keys)
@@ -32,6 +39,8 @@ def split_by_image(records: List[dict], n_train: int, n_val: int, n_test: int,
 
 def mask_prompt_labels(input_ids: Sequence[int], prompt_len: int) -> List[int]:
     """Loss only on the answer: set labels of the prompt part to -100."""
+    if isinstance(prompt_len, bool) or not isinstance(prompt_len, int) or prompt_len < 0:
+        raise ValueError("prompt_len must be a nonnegative integer.")
     labels = list(input_ids)
     for i in range(min(prompt_len, len(labels))):
         labels[i] = IGNORE_INDEX

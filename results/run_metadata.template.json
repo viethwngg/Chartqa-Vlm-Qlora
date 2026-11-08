@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "status": "not_run",
+  "experiment_id": null,
+  "run_id": null,
+  "started_at_utc": null,
+  "code": {"git_commit": null, "dirty_diff_sha256": null},
+  "environment": {"python": null, "os": null, "packages_lock_sha256": null, "cuda_runtime": null},
+  "model": {"id": null, "revision": null, "processor_revision": null, "chat_template_sha256": null, "quantization": null, "compute_dtype": null, "attention_implementation": null, "image_settings": null, "target_modules": null},
+  "dataset": {"id": null, "revision": null, "split": null, "manifest_sha256": null, "n_questions": null, "n_charts": null, "excluded_questions": null},
+  "config": {"resolved_config_sha256": null, "seed": null, "decoding": null, "checkpoint_selection": null},
+  "hardware": {"gpu_name": null, "gpu_count": null, "gpu_total_bytes": null, "driver": null, "cpu": null, "ram_bytes": null},
+  "training": {"status": "not_run", "wall_seconds": null, "consumed_samples": null, "samples_per_second": null, "effective_batch_size": null, "optimizer_steps": null, "peak_allocated_bytes": null, "peak_reserved_bytes": null, "gpu_hours": null, "trainable_parameters": null, "logical_total_parameters": null, "adapter_bytes": null, "checkpoint_path": null, "resume_verified": null},
+  "inference": {"status": "not_run", "model_load_seconds": null, "warmup_samples": null, "timed_samples": null, "batch_size": null, "wall_seconds": null, "latency_p50_ms": null, "latency_p95_ms": null, "samples_per_second": null, "generated_tokens": null, "peak_allocated_bytes": null, "peak_reserved_bytes": null, "gpu_hours": null, "latency_samples_path": null},
+  "cost": {"estimated_amount": null, "currency": null, "hourly_rate": null, "rate_source": null, "rate_date": null, "billable_hours": null},
+  "notes": "Template only. Fill from retained measurements; no results have been run."
+}
